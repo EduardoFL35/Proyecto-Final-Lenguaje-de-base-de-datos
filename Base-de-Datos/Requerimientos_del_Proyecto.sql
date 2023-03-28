@@ -7,6 +7,13 @@ create or replace view tareas_asignadas_recientemenete as
 select FECHAINGRESO FROM tareas_asignadas
 ORDER BY fechaingreso ASC;
 
+/* Diego */
+CREATE OR REPLACE VIEW Vista_Profesores_Cursos_Tareas AS
+SELECT p.nombreProf, p.apellidosProf, c.nombreCurso, t.descripcion, t.fechaIngreso, t.fechaRealizar, t.estado
+FROM Profesor p
+INNER JOIN Cursos c ON p.idProfesor = c.idProfesor
+INNER JOIN Tareas t ON c.idCurso = t.idCurso;
+
 /* Funciones */
 
 
@@ -98,3 +105,15 @@ begin
 
 /* Triggers */
 
+/* Andrés */
+CREATE OR REPLACE TRIGGER no_tareas_fecha_pasada_trigger
+BEFORE INSERT ON TAREAS
+FOR EACH ROW
+DECLARE
+    fecha_actual DATE;
+BEGIN
+    fecha_actual := SYSDATE;
+    IF :NEW.FECHAINGRESO < fecha_actual THEN
+        RAISE_APPLICATION_ERROR(-20001, 'No se puede insertar una tarea con fecha de ingreso que ya pasó.');
+    END IF;
+END;
