@@ -1,0 +1,21 @@
+/* Degradado */
+body{
+    background: radial-gradient(ellipse at center,  #0264d6 1%,#1c2b5a 100%); /* W3C */
+    }
+
+
+div.content-logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100px; */
+    /* margin-top: 10%; */
+    /*background-color: #003777;*/
+    padding: 10%;
+    margin-bottom: -15%;
+}
+
+.btn_animado{
+    transform: scale(0.75);
+}
+
