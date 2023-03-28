@@ -1,6 +1,6 @@
 /* Se crean en la conexion de PROYECTO para que se almacenen en la base de datos  */
 
-/* Vistas */
+/*** Vistas ***/
 
 /* Andrés */
 create or replace view tareas_asignadas_recientemenete as 
@@ -14,11 +14,11 @@ FROM Profesor p
 INNER JOIN Cursos c ON p.idProfesor = c.idProfesor
 INNER JOIN Tareas t ON c.idCurso = t.idCurso;
 
-/* Funciones */
+/*** Funciones ***/
 
 
 
-/* Procedimientos almacenados */ 
+/*** Procedimientos almacenados ***/ 
 CREATE OR REPLACE PROCEDURE Insertar_Sede
 AS 
     id INT;
@@ -99,11 +99,33 @@ begin
                         id_curso);
     end;
     /    
-/* Paquetes */
+/*** Paquetes ***/
 
-/* Cursores */
+/*** Cursores ***/
 
-/* Triggers */
+/* Fabricio */
+DECLARE
+    -- CURSOR
+    G_tipoTarea Tareas.idTarea%type;
+    CURSOR Tarea_Cursor IS
+        SELECT idTarea
+        FROM Tareas T
+        WHERE NOT  EXISTS(SELECT idCurso FROM Cursos WHERE idCurso = T.idCurso);
+BEGIN
+    -- ABRE EL CURSOR
+    OPEN Tarea_Cursor;
+    LOOP
+        -- RECORRE EL CURSOR
+        FETCH Tarea_Cursor INTO G_tipoTarea;
+        EXIT WHEN Tarea_Cursor%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE(G_tipoTarea);
+    END LOOP;
+    -- CIERRA EL CURSOR
+    CLOSE Tarea_Cursor;
+END;
+/
+
+/*** Triggers ***/
 
 /* Andrés */
 CREATE OR REPLACE TRIGGER no_tareas_fecha_pasada_trigger
