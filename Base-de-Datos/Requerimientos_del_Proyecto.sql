@@ -5,6 +5,7 @@
 create or replace view Mostrar_nombre_curso AS
 select nombrecurso from CURSOS;
 
+
 --- INCIDENTES
 create or replace view Mostrar_incidente AS
 select descripcion from incidentes;
